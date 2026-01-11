@@ -234,6 +234,7 @@ body {
 .chat-form .chat-controls #send-message{
     background: #5350C4;
     color:#fff;
+    display:none;
 }
 
 .chat-form .chat-controls #send-message:hover{
@@ -241,8 +242,12 @@ body {
 
 }
 
+.chat-form .message-input:valid~ .chat-controls #send-message{
+    display:block;
+
+}
+
 .chat-form .chat-controls button:hover{
     background: #f1f1ff;
-
 
 }
