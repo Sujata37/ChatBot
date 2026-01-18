@@ -7,7 +7,7 @@ const sendMessageButton = document.querySelector("#send-message");
 const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${API_KEY}`;
 
 const userData = {
-    message: "null"
+    message: null
 };
 
 
@@ -19,21 +19,54 @@ const createMessageElement = (content, ...classes) => {
     return div;
 }
 
-const generateBotResponse = () =>{
+// Generate bot response from API
 
+const generateBotResponse = async (incomingMessageDiv) =>{
+    const messageElement = incomingMessageDiv.querySelector(".message-text");
+
+    const requestOptions = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            contents : [{
+                parts: [{text: userData.message }]
+            
+            }]
+        })
+    };
+    try{
+        //fetch bot response from API
+        const response = await fetch(API_URL, requestOptions);
+        const data = await response.json();
+        if(!response.ok) throw new Error(data.error.message);
+        
+        const apiResponse = data.candidates[0].content.parts[0].text.replace(/\*\*(.*?)\*\*/g, '$1');
+        messageElement.textContent = apiResponse;
+
+    } catch(error) {
+        console.log(error);
+        messageElement.textContent = "Error: " + error.message;
+        messageElement.style.color = "#ff0000";
+    } finally {
+        incomingMessageDiv.classList.remove("thinking");
+         chatBody.scrollTo ({top: chatBody.scrollHeight, behavior: "smooth"});
+    }   
 }
 
 // Handle outgoing user message
 const handleOutgoingMessage = (e) => {
     e.preventDefault();
+
     userData.message = messageInput.value.trim();
     messageInput.value = "";
+    chatBody.scrollTo ({top: chatBody.scrollHeight, behavior: "smooth"});
 
 // Create and display user message
     const messageContent = `<div class="message-text"></div>`;
     const outgoingMessageDiv =createMessageElement(messageContent, "user-message");
     outgoingMessageDiv.querySelector(".message-text").textContent = userData.message;
     chatBody.appendChild(outgoingMessageDiv);
+    chatBody.scrollTo ({top: chatBody.scrollHeight, behavior: "smooth"});
 
 
     // Simulate bot response with thinking indicator after a delay
@@ -59,19 +92,19 @@ const handleOutgoingMessage = (e) => {
                 </div>`;
         const incomingMessageDiv =createMessageElement(messageContent, "bot-message", "thinking");
         chatBody.appendChild(incomingMessageDiv);
-        generateBotResponse();
-
-
+         chatBody.scrollTo ({top: chatBody.scrollHeight, behavior: "smooth"});
+        generateBotResponse(incomingMessageDiv);
     }, 600);
 
 }
 
-
+//handle enter key press for sending message
 messageInput.addEventListener("keydown", (e) => {
     const userMessage = e.target.value.trim();
     if(e.key === "Enter" && userMessage) {
-        handleOutgoingMessage(userMessage);
+        handleOutgoingMessage(e);
     }
 });
 
 sendMessageButton.addEventListener("click", (e) => handleOutgoingMessage(e))
+
