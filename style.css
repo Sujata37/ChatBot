@@ -266,6 +266,11 @@ body {
     position : relative;
 }
 
+.chat-form .file-upload-wrapper :where(img, button) {
+    position: absolute;
+
+}
+
 .chat-form .file-upload-wrapper img{
     position : absolute;
     display:none;
@@ -273,6 +278,11 @@ body {
     height: 100%;
     object-fit: cover;
     border-radius: 50%;
+}
+
+.chat-form .file-upload-wrapper #file-cancel {
+    color: #ff0000;
+    background: #fff;
 }
 
 .chat-form .file-upload-wrapper.file-uploaded img {
