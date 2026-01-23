@@ -283,6 +283,14 @@ body {
 .chat-form .file-upload-wrapper #file-cancel {
     color: #ff0000;
     background: #fff;
+    z-index: 10;
+    cursor: pointer;
+    border: none;
+}
+
+.chat-form .file-upload-wrapper :where(img, #file-cancel), 
+.chat-form .file-upload-wrapper.file-uploaded #file-upload {
+    display:none;
 }
 
 .chat-form .file-upload-wrapper.file-uploaded img {
