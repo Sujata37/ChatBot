@@ -148,10 +148,18 @@ fileInput.addEventListener("change", () => {
 
 // cancel file upload
 fileCancelButton.addEventListener("click", () => {
-    userData.file = {};
+    // reset stored file data so it doesn't get sent
+    userData.file = { data: null, mime_type: null };
+
+    // clear preview image and the input value so selecting the same file again will fire the change event
+    const img = fileUploadWrapper.querySelector("img");
+    if (img) img.src = "#";
+    fileInput.value = "";
+
     fileUploadWrapper.classList.remove("file-uploaded");
 
 });
 
 sendMessageButton.addEventListener("click", (e) => handleOutgoingMessage(e))
 document.querySelector("#file-upload").addEventListener("click", () => fileInput.click());
+
