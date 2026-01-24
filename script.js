@@ -160,6 +160,14 @@ fileCancelButton.addEventListener("click", () => {
 
 });
 
+const picker = new EmojiMart.Picker({
+    theme : "light",
+    skinTonePosition : "none",
+    previewPosition : "none"
+});
+
+document.querySelector(".chat-form").appendChild(picker);
+
 sendMessageButton.addEventListener("click", (e) => handleOutgoingMessage(e))
 document.querySelector("#file-upload").addEventListener("click", () => fileInput.click());
 
