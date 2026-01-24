@@ -260,9 +260,17 @@ body.show-chatbot .chatbot-popup {
     height:47px;
     width:100%;
     resize: none;
+    max-height:180px;
     font-size: 0.95rem;
     padding: 14px 0 13px 18px;
     border-radius: inherit;
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+}
+
+.chat-form .message-input:hover {
+    scrollbar-color: #ccccf5 transparent;
+
 }
 
 .chat-form .chat-controls{
@@ -355,4 +363,13 @@ em-emoji-picker {
 
 body.show-emoji-picker em-emoji-picker {
     visibility: visible;
+}
+
+
+/* responsive */
+@media (max-width: 520px){
+    #chatbot-toggler {
+        right:20px;
+        bottom:20px;
+    }
 }
