@@ -45,7 +45,18 @@ const generateBotResponse = async (incomingMessageDiv) => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-            contents : chatHistory
+            contents : chatHistory,
+
+            //RAG banauna
+            tools : [{
+                google_search_retrieval: {
+                    dynamic_retrieval_config: {
+                        mode: "MODE_DYNAMIC",
+                        dynamic_threshold: 0.3
+                    }
+                }
+            }]
+            //hya samma
         })
     }
 
