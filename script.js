@@ -47,16 +47,16 @@ const generateBotResponse = async (incomingMessageDiv) => {
         body: JSON.stringify({
             contents : chatHistory,
 
-            //RAG banauna
-            tools : [{
-                google_search_retrieval: {
-                    dynamic_retrieval_config: {
-                        mode: "MODE_DYNAMIC",
-                        dynamic_threshold: 0.3
-                    }
-                }
-            }]
-            //hya samma
+            // //RAG banauna
+            // tools : [{
+            //     google_search_retrieval: {
+            //         dynamic_retrieval_config: {
+            //             mode: "MODE_DYNAMIC",
+            //             dynamic_threshold: 0.3
+            //         }
+            //     }
+            // }]
+            // //hya samma
         })
     }
 
